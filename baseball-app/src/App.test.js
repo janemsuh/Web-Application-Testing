@@ -1,9 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import * as rtl from '@testing-library/react';
+import Display from './components/Display';
+import Dashboard from './components/Dashboard';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+afterEach(rtl.cleanup);
+
+test('renders hits text', () => {
+  const wrapper = rtl.render(<Display />);
+  const element = wrapper.getByText(/Hits/i);
+  expect(element).toBeVisible();
+})
+
+test('renders reset game button', () => {
+  const wrapper = rtl.render(<Dashboard />);
+  const element = wrapper.queryByText(/Reset game/i);
+  expect(element).toBeVisible();
+})
